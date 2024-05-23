@@ -4,6 +4,7 @@ class AnnotationsFiles:
         self._path = path
         self._path = os.path.abspath(self._path)
         self._export_path = os.path.abspath(".")
+        self._sub_folders = list()
         self._get_annotation_files()
 
     def show_path(self):
@@ -12,10 +13,13 @@ class AnnotationsFiles:
     def _get_annotation_files(self):
         import os
         os.chdir(self._path)
-        for file in os.listdir(self._path):
-            if not file.lower().endswith(".json"):
-                file_path = os.path.join(self._path, file)
-                os.remove(file_path)
+        self._sub_folders = os.listdir(self._path)
+        for sub_folder in self._sub_folders:
+            sub_path = os.path.join(self._path, sub_folder)
+            for file in os.listdir(sub_path):
+                if not file.lower().endswith(".json"):
+                    file_path = os.path.join(sub_path, file)
+                    os.remove(file_path)
 
     def generate_coco_labels(self):
         from .to_coco import ToCOCO
