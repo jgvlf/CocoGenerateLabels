@@ -9,4 +9,4 @@ args = parser.parse_args()
 
 if __name__ == '__main__':
     annotations = AnnotationsFiles(args.path)
-    # files = annotations.generate_coco_labels()
+    files = annotations.generate_coco_labels()
